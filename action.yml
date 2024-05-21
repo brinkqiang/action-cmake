@@ -48,5 +48,5 @@ runs:
         state: 'success'
 
 branding:
-  icon: 'terminal'
-  color: 'blue'
+  icon: 'cmake'
+  color: 'red'
