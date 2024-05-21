@@ -1,4 +1,4 @@
-name: 'brinkqiang-cmake'
+name: 'action-cmake'
 description: 'Build and test a CMake based project on multiple platforms.'
 author: 'brinkqiang'
 inputs: 
