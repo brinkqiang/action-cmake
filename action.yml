@@ -1,2 +1,26 @@
-name=action C/C++ with CMake
-description=Build and test a C/C++ project using CMake.
+name: 'C/C++ with Make'
+description: 'Build and test a C/C++ project using Make'
+author: 'Your Name'
+inputs: {} # 根据需要定义输入参数
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up C++ compiler
+      uses: actions/setup-cpp@v1
+      with:
+        compiler: gcc
+
+    - name: Install dependencies
+      run: sudo apt-get update && sudo apt-get install -y make gcc g++
+
+    - name: Build with Make
+      run: make
+
+    - name: Run tests
+      run: make test
+branding:
+  icon: 'terminal'
+  color: 'blue'
