@@ -10,7 +10,7 @@ cmake build_type. (default: relwithdebinfo).
 
 ```yaml
 - name: Build and publish
-  uses: brinkqiang/action-cmake@<release>
+  uses: brinkqiang/action-cmake@v1
   with:
     build_type: 'relwithdebinfo'
 ```
