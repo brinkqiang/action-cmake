@@ -2,13 +2,9 @@
 
 ## Inputs
 
-### `input_foo`
+### `build_type`
 
-Some description. (default: bar).
-
-### `input_bar`
-
-Some description. (default: foo).
+cmake build_type. (default: relwithdebinfo).
 
 ## Example usage
 
@@ -16,6 +12,5 @@ Some description. (default: foo).
 - name: Build and publish
   uses: brinkqiang/action-cmake@<release>
   with:
-    input_foo: ${{ secrets.FOO }}
-    input_bar: "bar"
+    build_type: 'relwithdebinfo'
 ```
