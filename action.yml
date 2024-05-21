@@ -12,7 +12,7 @@ inputs:
     default: "foo"
 
 runs:
-  using: 'composite'
+  using: 'action-cmake task runner'
   steps:
     - uses: actions/checkout@v2
     - uses: lukka/get-cmake@latest
