@@ -13,6 +13,15 @@ branding:
 runs:
   using: 'action-cmake task runner'
   steps:
+    - name: setup-windows
+      if: runner.os == 'Windows'
+      shell: bash
+      run: ${GITHUB_ACTION_PATH}/setup.bat
+
+    - name: setup-Posix
+      if: runner.os != 'Windows'
+      shell: bash
+      run: ${GITHUB_ACTION_PATH}/setup.sh  
     - uses: actions/checkout@v2
     - uses: lukka/get-cmake@latest
 
@@ -36,6 +45,7 @@ runs:
     - name: Test
       shell: bash
       run: ctest -C ${{env.BUILD_TYPE}}
+
 
     - name: Status
       uses: Sibz/github-status-action@v1
