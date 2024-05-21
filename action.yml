@@ -48,5 +48,5 @@ runs:
         state: 'success'
 
 branding:
-  icon: 'cmake'
+  icon: 'chevron-up'
   color: 'red'
