@@ -1,26 +1,52 @@
-name: 'C/C++ with Make'
-description: 'Build and test a C/C++ project using Make'
-author: 'Your Name'
-inputs: {} # 根据需要定义输入参数
+name: 'brinkqiang-cmake'
+description: 'Action C/C++ project using cmake'
+author: 'brinkqiang'
+inputs: 
+  input_foo:
+    description: "Some description"
+    required: true
+    default: "bar"
+  input_bar:
+    description: "Some description"
+    required: false
+    default: "foo"
+    
 runs:
   using: 'composite'
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v2
+    - uses: lukka/get-cmake@latest
 
-    - name: Set up C++ compiler
-      uses: actions/setup-cpp@v1
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%dT%H%M')"
+
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{runner.workspace}}/build
+
+    - name: Configure CMake
+      shell: bash
+      working-directory: ${{runner.workspace}}/build
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      shell: bash
+      run: cmake --build . --config ${{env.BUILD_TYPE}}
+
+    - name: Test
+      shell: bash
+      run: ctest -C ${{env.BUILD_TYPE}}
+
+    - name: Status
+      uses: Sibz/github-status-action@v1
+
       with:
-        compiler: gcc
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'Set Status'
+        description: 'Passed'
+        state: 'success'
 
-    - name: Install dependencies
-      run: sudo apt-get update && sudo apt-get install -y make gcc g++
-
-    - name: Build with Make
-      run: make
-
-    - name: Run tests
-      run: make test
 branding:
   icon: 'terminal'
   color: 'blue'
